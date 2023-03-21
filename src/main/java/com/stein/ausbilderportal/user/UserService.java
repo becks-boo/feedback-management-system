@@ -28,8 +28,12 @@ public class UserService implements UserDetailsService {
         }
 
         String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+
         user.setPassword(encodedPassword);
 
-        return "";
+        userRepository.save(user);
+
+        // TODO: Send confirmation token
+        return "it works";
     }
 }
