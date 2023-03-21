@@ -9,7 +9,6 @@ import java.util.UUID;
 public class EntityBase {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
-    @Column(unique = true, nullable = false)
     private UUID id;
 
     @Column(name = "created_at", nullable = false)
@@ -22,11 +21,28 @@ public class EntityBase {
     protected LocalDateTime deletedAt;
 
     @Column(name = "state", nullable = false)
-    protected LocalDateTime state;
+    @Enumerated(EnumType.STRING)
+    protected EntityState entityState;
 
-    /*@PrePersist
+    @PrePersist
     public void onPrePersist() {
         this.createdAt = LocalDateTime.now();
-        this.state = EntityState.CREATED.toString();
-    }*/
+        this.entityState = EntityState.CREATED;
+    }
+
+    @PreUpdate
+    public void onPreUpdate() {
+        if (entityState.equals(EntityState.DELETED)) {
+            return;
+        }
+
+        this.updatedAt = LocalDateTime.now();
+        this.entityState = EntityState.UPDATED;
+    }
+
+    @PostRemove
+    public void onPostRemove() {
+        this.deletedAt = LocalDateTime.now();
+        this.entityState = EntityState.DELETED;
+    }
 }

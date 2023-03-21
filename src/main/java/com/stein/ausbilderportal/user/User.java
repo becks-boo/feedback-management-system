@@ -1,5 +1,6 @@
 package com.stein.ausbilderportal.user;
 
+import com.stein.ausbilderportal.general.base.EntityBase;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -16,10 +17,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 //@Table(name = "user")
-public class User implements UserDetails {
-    @Id
-    @GeneratedValue(strategy = GenerationType.UUID)
-    private UUID id;
+public class User extends EntityBase implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
