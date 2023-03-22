@@ -1,6 +1,6 @@
 package com.stein.ausbilderportal.user;
 
-import com.stein.ausbilderportal.general.base.EntityBase;
+import com.stein.ausbilderportal.general.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,7 +9,6 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.UUID;
 
 @Getter
 @Setter
@@ -17,7 +16,7 @@ import java.util.UUID;
 @NoArgsConstructor
 @Entity
 //@Table(name = "user")
-public class User extends EntityBase implements UserDetails {
+public class User extends BaseEntity implements UserDetails {
     private String firstName;
     private String lastName;
     private String email;
