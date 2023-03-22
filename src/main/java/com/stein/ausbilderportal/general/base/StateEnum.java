@@ -1,6 +1,6 @@
 package com.stein.ausbilderportal.general.base;
 
-public enum EntityState {
+public enum StateEnum {
     CREATED,
     UPDATED,
     DELETED;
