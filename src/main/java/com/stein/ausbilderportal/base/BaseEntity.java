@@ -1,30 +1,24 @@
-package com.stein.ausbilderportal.general.base;
+package com.stein.ausbilderportal.base;
 
 import jakarta.persistence.*;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.Data;
 
 import java.time.LocalDateTime;
 import java.util.UUID;
 
-@Getter
-@Setter
+@Data
 @MappedSuperclass
 public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
 
-    @Column(name = "created_at", nullable = false)
     private LocalDateTime createdAt;
 
-    @Column(name = "updated_at")
     private LocalDateTime updatedAt;
 
-    @Column(name = "deleted_at")
     private LocalDateTime deletedAt;
 
-    @Column(name = "state", nullable = false)
     @Enumerated(EnumType.STRING)
     private StateEnum stateEnum;
 
