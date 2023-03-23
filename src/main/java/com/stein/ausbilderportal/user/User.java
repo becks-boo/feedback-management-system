@@ -1,6 +1,6 @@
 package com.stein.ausbilderportal.user;
 
-import com.stein.ausbilderportal.general.base.BaseEntity;
+import com.stein.ausbilderportal.base.BaseEntity;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Getter
 @Setter
-@EqualsAndHashCode
+@EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Entity
 //@Table(name = "user")
