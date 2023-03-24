@@ -26,8 +26,7 @@ public class User extends BaseEntity implements UserDetails {
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean locked = false;
-    // TODO: Change that later
-    private Boolean enabled = true;
+    private Boolean enabled = false;
 
     public User(String firstName, String lastName, String email, String password,
                 UserRole userRole) {
