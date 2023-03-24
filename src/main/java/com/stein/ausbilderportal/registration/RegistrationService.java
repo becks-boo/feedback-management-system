@@ -12,7 +12,7 @@ public class RegistrationService {
     private final UserService userService;
     private final EmailValidator emailValidator;
     public String register(RegistrationRequest request) {
-        boolean isValidEmail = emailValidator.test(request.getEmail());
+        boolean isValidEmail = emailValidator.test(request.email());
 
         if (!isValidEmail) {
             throw new IllegalStateException("Email not valid.");
@@ -20,10 +20,10 @@ public class RegistrationService {
 
         return userService.signUpUser(
                 new User(
-                        request.getFirstName(),
-                        request.getLastName(),
-                        request.getEmail(),
-                        request.getPassword(),
+                        request.firstName(),
+                        request.lastName(),
+                        request.email(),
+                        request.password(),
                         UserRole.USER
                 )
         );

@@ -15,16 +15,20 @@ import java.util.Collections;
 @EqualsAndHashCode(callSuper = true)
 @NoArgsConstructor
 @Entity
-//@Table(name = "user")
 public class User extends BaseEntity implements UserDetails {
+    @NonNull
     private String firstName;
+    @NonNull
     private String lastName;
+    @NonNull
     private String email;
+    @NonNull
     private String password;
     @Enumerated(EnumType.STRING)
     private UserRole userRole;
     private Boolean locked = false;
-    private Boolean enabled = false;
+    // TODO: Change that later
+    private Boolean enabled = true;
 
     public User(String firstName, String lastName, String email, String password,
                 UserRole userRole) {
