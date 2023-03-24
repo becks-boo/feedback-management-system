@@ -42,7 +42,7 @@ public class UserService implements UserDetailsService {
         String token = UUID.randomUUID().toString();
 
         ConfirmationToken confirmationToken = new ConfirmationToken(token, LocalDateTime.now(),
-                LocalDateTime.now().plusMinutes(15), user);
+                LocalDateTime.now().plusMinutes(60), user);
 
         confirmationTokenService.saveConfirmationToken(confirmationToken);
 
