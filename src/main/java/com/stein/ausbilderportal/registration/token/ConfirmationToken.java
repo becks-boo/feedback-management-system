@@ -11,6 +11,7 @@ import java.util.UUID;
 
 @Data
 @NoArgsConstructor
+@Entity
 public class ConfirmationToken {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
@@ -21,17 +22,14 @@ public class ConfirmationToken {
     private LocalDateTime createdAt;
     @NonNull
     private LocalDateTime expiresAt;
-    private LocalDateTime confirmedAt;
     @ManyToOne
     @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
-    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, LocalDateTime confirmedAt,
-                             User user) {
+    public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, User user) {
         this.token = token;
         this.createdAt = createdAt;
         this.expiresAt = expiresAt;
-        this.confirmedAt = confirmedAt;
         this.user = user;
     }
 }
