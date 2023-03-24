@@ -12,7 +12,7 @@ import java.util.UUID;
 @AllArgsConstructor
 public class BaseController<Type extends BaseEntity, Repo extends JpaRepository<Type, UUID>,
         Service extends BaseService<Type, UUID, Repo>> {
-    private final Service service;
+    protected final Service service;
 
     @GetMapping("/{id}")
     protected Type onGet(@PathVariable(value = "id") UUID id) {
