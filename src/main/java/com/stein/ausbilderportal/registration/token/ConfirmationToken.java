@@ -1,9 +1,7 @@
 package com.stein.ausbilderportal.registration.token;
 
 import com.stein.ausbilderportal.user.User;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 import lombok.NonNull;
@@ -24,6 +22,8 @@ public class ConfirmationToken {
     @NonNull
     private LocalDateTime expiresAt;
     private LocalDateTime confirmedAt;
+    @ManyToOne
+    @JoinColumn(nullable = false, name = "user_id")
     private User user;
 
     public ConfirmationToken(String token, LocalDateTime createdAt, LocalDateTime expiresAt, LocalDateTime confirmedAt,
