@@ -12,7 +12,7 @@ import java.util.Collections;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
-@NoArgsConstructor
+@NoArgsConstructor(force = true)
 @Entity
 public class User extends BaseEntity implements UserDetails {
     @NonNull
@@ -41,14 +41,6 @@ public class User extends BaseEntity implements UserDetails {
     public Collection<? extends GrantedAuthority> getAuthorities() {
         SimpleGrantedAuthority authority = new SimpleGrantedAuthority(userRole.name());
         return Collections.singletonList(authority);
-    }
-
-    public String getFirstName() {
-        return firstName;
-    }
-
-    public String getLastName() {
-        return lastName;
     }
 
     @Override
