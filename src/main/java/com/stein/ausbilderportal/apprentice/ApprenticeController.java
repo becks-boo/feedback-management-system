@@ -2,18 +2,24 @@ package com.stein.ausbilderportal.apprentice;
 
 import com.stein.ausbilderportal.base.BaseController;
 import com.stein.ausbilderportal.exception.ApiRequestException;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
 
-@RestController
-@RequestMapping("api/v1/apprentice")
-public class ApprenticeController extends BaseController<Apprentice, ApprenticeRepository, ApprenticeService> {
+@Controller
+@RequestMapping("api/v1/apprentices")
+public class ApprenticeController extends BaseController<Apprentice, ApprenticeRepository, ApprenticeService>{
     public ApprenticeController(ApprenticeService apprenticeService) {
         super(apprenticeService);
+    }
+
+    @GetMapping("/")
+    public String listApprentices(Model model) {
+        model.addAttribute("apprentices", service.getAll());
+
+        return "apprentices";
     }
 
     @PostMapping()
