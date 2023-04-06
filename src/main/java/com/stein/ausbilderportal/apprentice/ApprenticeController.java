@@ -9,20 +9,19 @@ import org.springframework.web.bind.annotation.*;
 import java.util.Optional;
 
 @Controller
-@RequestMapping("api/v1/apprentices")
 public class ApprenticeController extends BaseController<Apprentice, ApprenticeRepository, ApprenticeService>{
     public ApprenticeController(ApprenticeService apprenticeService) {
         super(apprenticeService);
     }
 
-    @GetMapping("/")
+    @GetMapping("/apprentices/")
     public String listApprentices(Model model) {
         model.addAttribute("apprentices", service.getAll());
 
         return "apprentices";
     }
 
-    @PostMapping()
+    @PostMapping("/api/v1/apprentices/")
     public void onPost(@RequestBody() Optional<Apprentice> apprentice) {
         if (apprentice.isEmpty()) {
             throw new ApiRequestException("Please provide a RequestBody.");
@@ -33,5 +32,20 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         }
 
         service.postApprentice(apprentice.get());
+    }
+
+    @GetMapping("/apprentices/new/")
+    public String createApprenticeForm(Model model) {
+        Apprentice apprentice = new Apprentice();
+        model.addAttribute("apprentice", apprentice);
+
+        return "create_apprentice";
+    }
+
+    @PostMapping("/apprentices/")
+    public String addApprentice(@ModelAttribute("apprentice") Apprentice apprentice) {
+        service.postApprentice(apprentice);
+
+        return "redirect:/apprentices/";
     }
 }

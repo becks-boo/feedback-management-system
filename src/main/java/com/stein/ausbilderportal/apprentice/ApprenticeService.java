@@ -7,7 +7,6 @@ import java.util.UUID;
 
 @Service
 public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeRepository> {
-
     public ApprenticeService(ApprenticeRepository apprenticeRepository) {
         super(apprenticeRepository);
     }
