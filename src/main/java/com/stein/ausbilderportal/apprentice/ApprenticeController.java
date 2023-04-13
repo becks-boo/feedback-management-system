@@ -7,6 +7,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.Optional;
+import java.util.UUID;
 
 @Controller
 public class ApprenticeController extends BaseController<Apprentice, ApprenticeRepository, ApprenticeService>{
@@ -19,19 +20,6 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         model.addAttribute("apprentices", service.getAll());
 
         return "apprentices";
-    }
-
-    @PostMapping("/api/v1/apprentices/")
-    public void onPost(@RequestBody() Optional<Apprentice> apprentice) {
-        if (apprentice.isEmpty()) {
-            throw new ApiRequestException("Please provide a RequestBody.");
-        }
-
-        if (apprentice.get().getFirstName() == null || apprentice.get().getEmail() == null) {
-            throw new ApiRequestException("Information still needed.");
-        }
-
-        service.postApprentice(apprentice.get());
     }
 
     @GetMapping("/apprentices/new/")
@@ -47,5 +35,37 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         service.postApprentice(apprentice);
 
         return "redirect:/apprentices/";
+    }
+
+    @GetMapping("/apprentices/edit/{id}")
+    public String editApprenticeForm(@PathVariable UUID id, Model model) {
+        model.addAttribute("apprentice", service.get(id));
+
+        return "edit_apprentice";
+    }
+
+    @PostMapping("/apprentices/{id}")
+    public String editApprentice(@PathVariable UUID id, @ModelAttribute("apprentice") Apprentice apprentice) {
+        Apprentice existingApprentice = service.get(id);
+        existingApprentice.setId(id);
+        existingApprentice.setFirstName(apprentice.getFirstName());
+        existingApprentice.setEmail(apprentice.getEmail());
+
+        service.updateApprentice(existingApprentice);
+
+        return "redirect:/apprentices/";
+    }
+
+    @PostMapping("/api/v1/apprentices/")
+    public void onPost(@RequestBody() Optional<Apprentice> apprentice) {
+        if (apprentice.isEmpty()) {
+            throw new ApiRequestException("Please provide a RequestBody.");
+        }
+
+        if (apprentice.get().getFirstName() == null || apprentice.get().getEmail() == null) {
+            throw new ApiRequestException("Information still needed.");
+        }
+
+        service.postApprentice(apprentice.get());
     }
 }
