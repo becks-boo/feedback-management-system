@@ -51,9 +51,9 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         existingApprentice.setFirstName(apprentice.getFirstName());
         existingApprentice.setEmail(apprentice.getEmail());
 
-        service.postApprentice(existingApprentice);
+        service.updateApprentice(existingApprentice);
 
-        return "redirect:/apprentices";
+        return "redirect:/apprentices/";
     }
 
     @PostMapping("/api/v1/apprentices/")
