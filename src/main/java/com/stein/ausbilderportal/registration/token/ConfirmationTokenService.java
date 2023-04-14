@@ -20,6 +20,7 @@ public class ConfirmationTokenService {
     }
 
     public int setConfirmedAt(String token) {
+        // TODO: Change to save token
         return confirmationTokenRepository.updateConfirmedAt(token, LocalDateTime.now());
     }
 }
