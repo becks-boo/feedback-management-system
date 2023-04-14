@@ -47,6 +47,7 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
     @PostMapping("/apprentices/{id}")
     public String editApprentice(@PathVariable UUID id, @ModelAttribute("apprentice") Apprentice apprentice) {
         Apprentice existingApprentice = service.get(id);
+        // TODO: Not necessary
         existingApprentice.setId(id);
         existingApprentice.setFirstName(apprentice.getFirstName());
         existingApprentice.setEmail(apprentice.getEmail());

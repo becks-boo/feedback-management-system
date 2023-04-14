@@ -1,8 +1,7 @@
 package com.stein.ausbilderportal.category;
 
 import com.stein.ausbilderportal.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;

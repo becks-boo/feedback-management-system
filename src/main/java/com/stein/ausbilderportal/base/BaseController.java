@@ -12,8 +12,8 @@ public class BaseController<Type extends BaseEntity, Repo extends JpaRepository<
         Service extends BaseService<Type, UUID, Repo>> {
     protected final Service service;
 
-    @GetMapping("/{id}")
+/*    @GetMapping("/{id}")
     protected Type onGet(@PathVariable(value = "id") UUID id) {
         return service.get(id);
-    }
+    }*/
 }
