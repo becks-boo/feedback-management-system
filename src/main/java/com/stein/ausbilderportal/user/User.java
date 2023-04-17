@@ -1,6 +1,7 @@
 package com.stein.ausbilderportal.user;
 
 import com.stein.ausbilderportal.base.BaseEntity;
+import com.stein.ausbilderportal.feedback.Feedback;
 import jakarta.persistence.*;
 import lombok.*;
 import org.springframework.security.core.GrantedAuthority;
@@ -9,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
+import java.util.Set;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -27,6 +29,8 @@ public class User extends BaseEntity implements UserDetails {
     private UserRole userRole;
     private Boolean locked = false;
     private Boolean enabled = false;
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
+    private Set<Feedback> feedbackSet;
 
     public User(String firstName, String lastName, String email, String password,
                 UserRole userRole) {
