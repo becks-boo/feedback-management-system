@@ -1,8 +1,9 @@
 package com.stein.ausbilderportal.feedback;
 
+import com.stein.ausbilderportal.apprentice.Apprentice;
 import com.stein.ausbilderportal.base.BaseEntity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.Table;
+import com.stein.ausbilderportal.category.Category;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
@@ -17,4 +18,8 @@ import lombok.NoArgsConstructor;
 public class Feedback extends BaseEntity {
     private String title;
     private String text;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Apprentice apprentice;
+    @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    private Category category;
 }
