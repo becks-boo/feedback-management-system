@@ -15,6 +15,13 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         super(apprenticeService);
     }
 
+    @GetMapping("/apprentice/{id}/")
+    public String showApprentice(@PathVariable UUID id, Model model) {
+        model.addAttribute("apprentice", service.get(id));
+
+        return "show-apprentice";
+    }
+
     @GetMapping("/apprentices/")
     public String listApprentices(Model model) {
         model.addAttribute("apprentices", service.getAll());
