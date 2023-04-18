@@ -15,7 +15,6 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "feedback")
 public class Feedback extends BaseEntity {
     private String title;
     private String text;
