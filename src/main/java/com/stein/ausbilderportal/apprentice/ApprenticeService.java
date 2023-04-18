@@ -14,12 +14,8 @@ public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeR
         super(apprenticeRepository);
     }
 
-    public void postApprentice(String firstname, String email) {
-        repo.save(new Apprentice(firstname, email));
-    }
-
     public void postApprentice(Apprentice apprentice) {
-        this.postApprentice(apprentice.getFirstName(), apprentice.getEmail());
+        repo.save(apprentice);
     }
 
     public void updateApprentice(Apprentice apprentice) {
