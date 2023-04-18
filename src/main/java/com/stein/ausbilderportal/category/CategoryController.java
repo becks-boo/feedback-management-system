@@ -46,8 +46,10 @@ public class CategoryController extends BaseController<Category, CategoryReposit
         return "edit_category";
     }
 
+    @PostMapping("/categories/{id}")
     public String editCategory(@PathVariable UUID id, @ModelAttribute("category") Category category) {
         Category existingCategory = service.get(id);
+        existingCategory.setName(category.getName());
 
         service.updateCategory(existingCategory);
 
