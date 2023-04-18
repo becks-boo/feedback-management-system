@@ -12,7 +12,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "apprentice")
 public class Apprentice extends BaseEntity {
     private String firstName;
     private String email;

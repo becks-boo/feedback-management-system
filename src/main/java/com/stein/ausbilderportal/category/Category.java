@@ -15,7 +15,6 @@ import java.util.Set;
 @NoArgsConstructor
 @Data
 @Entity
-@Table(name = "category")
 public class Category extends BaseEntity {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
