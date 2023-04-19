@@ -52,4 +52,9 @@ public class UserService implements UserDetailsService {
     public int enableUser(String email) {
         return userRepository.enableUser(email);
     }
+
+    public User getUser(UUID id) throws Exception {
+        return userRepository.findById(id).
+                orElseThrow(() -> new Exception("ID not found"));
+    }
 }
