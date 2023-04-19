@@ -5,14 +5,12 @@ import com.stein.ausbilderportal.base.BaseEntity;
 import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.user.User;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.NoArgsConstructor;
+import lombok.*;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
 @NoArgsConstructor
+@Builder
 @Data
 @Entity
 public class Feedback extends BaseEntity {
