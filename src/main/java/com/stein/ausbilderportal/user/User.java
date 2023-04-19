@@ -10,7 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.Collections;
-import java.util.Set;
+import java.util.List;
 
 @Data
 @EqualsAndHashCode(callSuper = true)
@@ -30,7 +30,7 @@ public class User extends BaseEntity implements UserDetails {
     private Boolean locked = false;
     private Boolean enabled = false;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "user", fetch = FetchType.LAZY)
-    private Set<Feedback> feedbackSet;
+    private List<Feedback> feedbackSet;
 
     public User(String firstName, String lastName, String email, String password,
                 UserRole userRole) {

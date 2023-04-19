@@ -18,10 +18,18 @@ import lombok.NoArgsConstructor;
 public class Feedback extends BaseEntity {
     private String title;
     private String text;
+    private String poster;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "apprentice_id")
     private Apprentice apprentice;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "category_id")
     private Category category;
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
+    @JoinColumn(name = "user_id")
     private User user;
+
+/*    public void setPoster() {
+        this.poster = this.user.getFirstName();
+    }*/
 }

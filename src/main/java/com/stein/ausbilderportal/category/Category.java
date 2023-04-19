@@ -8,7 +8,7 @@ import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.NoArgsConstructor;
 
-import java.util.Set;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -18,7 +18,7 @@ import java.util.Set;
 public class Category extends BaseEntity {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
-    private Set<Feedback> feedbackSet;
+    private List<Feedback> feedbackSet;
 
     public Category(String name) {
         this.name = name;

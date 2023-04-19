@@ -5,7 +5,7 @@ import com.stein.ausbilderportal.feedback.Feedback;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Set;
+import java.util.List;
 
 @EqualsAndHashCode(callSuper = true)
 @AllArgsConstructor
@@ -16,7 +16,7 @@ public class Apprentice extends BaseEntity {
     private String firstName;
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apprentice", fetch = FetchType.LAZY)
-    private Set<Feedback> feedbackSet;
+    private List<Feedback> feedbackSet;
 
     public Apprentice(String firstname, String email) {
         this.firstName = firstname;
