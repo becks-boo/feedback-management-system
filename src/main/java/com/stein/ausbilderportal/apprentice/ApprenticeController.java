@@ -19,7 +19,7 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
     public String showApprentice(@PathVariable UUID id, Model model) {
         model.addAttribute("apprentice", service.get(id));
 
-        return "show-apprentice";
+        return "show_apprentice";
     }
 
     @GetMapping("/apprentices/")

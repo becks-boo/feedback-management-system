@@ -11,6 +11,7 @@ import com.stein.ausbilderportal.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service
@@ -18,10 +19,6 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
     private final UserService userService;
     private final ApprenticeService apprenticeService;
     private final CategoryService categoryService;
-
-   /* private UserRepository userRepository;
-    private ApprenticeRepository apprenticeRepository;
-    private CategoryRepository categoryRepository;*/
 
     @Autowired
     public FeedbackService(FeedbackRepository feedbackRepository, UserService userService, ApprenticeService apprenticeService, CategoryService categoryService) {
@@ -31,24 +28,14 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
         this.categoryService = categoryService;
     }
 
- /*   public void postFeedback(String title, String text, String poster, @AuthenticationPrincipal User user) {
-        Feedback feedback = new Feedback();
-        feedback.setTitle(title);
-        feedback.setText(text);
-        feedback.setPoster(user.getFirstName());
-        repo.save(feedback);
-    }*/
+    public List<Feedback> getFeedbackByApprenticeAndCategoryId(UUID apprenticeId, UUID categoryId) {
+        return repo.findByApprenticeIdAndCategoryId(apprenticeId, categoryId);
+    }
 
     public Feedback postFeedback(FeedbackRequest feedback) throws Exception {
         Apprentice apprentice = apprenticeService.get(feedback.apprenticeId());
         Category category = categoryService.get(feedback.categoryId());
         User user = userService.getUser(feedback.userId());
-
-/*        feedback.setUser(Feedback.builder()
-                        .title()
-                .build());
-        feedback.setApprentice(apprentice);
-        feedback.setCategory(category);*/
 
         return repo.save(
                 Feedback.builder()
