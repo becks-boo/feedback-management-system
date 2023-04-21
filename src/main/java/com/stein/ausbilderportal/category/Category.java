@@ -18,9 +18,18 @@ import java.util.List;
 public class Category extends BaseEntity {
     private String name;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "category", fetch = FetchType.LAZY)
-    private List<Feedback> feedbackSet;
+    private List<Feedback> feedbackList;
 
     public Category(String name) {
         this.name = name;
     }
+
+    @Override
+    public String toString() {
+        return "Category{" +
+                "name='" + name + '\'' +
+                '}';
+    }
 }
+
+

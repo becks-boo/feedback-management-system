@@ -16,10 +16,18 @@ public class Apprentice extends BaseEntity {
     private String firstName;
     private String email;
     @OneToMany(cascade = CascadeType.ALL, mappedBy = "apprentice", fetch = FetchType.LAZY)
-    private List<Feedback> feedbackSet;
+    private List<Feedback> feedbackList;
 
     public Apprentice(String firstname, String email) {
         this.firstName = firstname;
         this.email = email;
+    }
+
+    @Override
+    public String toString() {
+        return "Apprentice{" +
+                "firstName='" + firstName + '\'' +
+                ", email='" + email + '\'' +
+                '}';
     }
 }

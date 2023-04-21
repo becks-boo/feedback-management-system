@@ -31,7 +31,15 @@ public class Feedback extends BaseEntity {
     @JoinColumn(name = "user_id")
     private User user;
 
-/*    public void setPoster() {
-        this.poster = this.user.getFirstName();
-    }*/
+    @Override
+    public String toString() {
+        return "Feedback{" +
+                "title='" + title + '\'' +
+                ", text='" + text + '\'' +
+                ", poster='" + poster + '\'' +
+                ", apprentice=" + apprentice +
+                ", category=" + category +
+                ", user=" + user +
+                '}';
+    }
 }
