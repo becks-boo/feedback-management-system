@@ -36,6 +36,35 @@
       <ul class="nav nav-tabs">
         <li class="nav-item">
           <a class="nav-link active" aria-current="page" href="#">JAVASCRIPT BASICS</a>
+<!--          <table>-->
+<!--            <thead>-->
+<!--            <tr>-->
+<!--              <th>Title</th>-->
+<!--              <th>Text</th>-->
+<!--            </tr>-->
+<!--            </thead>-->
+<!--            <tbody>-->
+<!--            <tr th:each="feedback : ${feedbacks}">-->
+<!--              <td th:text="${feedback.title}"></td>-->
+<!--              <td th:text="${feedback.text}"></td>-->
+<!--            </tr>-->
+<!--            </tbody>-->
+<!--          </table>-->
+          <div class="accordion" id="accordionPanelsStayOpenExample">
+            <div class="accordion-item" th:each="feedback : ${feedbacks}">
+              <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse"
+                        data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true"
+                        aria-controls="panelsStayOpen-collapseOne" th:text="${feedback.title}">
+                </button>
+              </h2>
+              <div id="panelsStayOpen-collapseOne" class="accordion-collapse collapse show">
+                <div class="accordion-body">
+                  "<span th:text="${feedback.text}"></span>" - <span th:text="${feedback.poster}"></span>
+                </div>
+              </div>
+            </div>
+          </div>
         </li>
         <li class="nav-item">
           <a class="nav-link" href="#">JAVA BASICS</a>
@@ -46,7 +75,7 @@
       </ul>
     </div>
 
-    <div class="accordion" id="accordionPanelsStayOpenExample">
+<!--    <div class="accordion" id="accordionPanelsStayOpenExample">
       <div class="accordion-item">
         <h2 class="accordion-header">
           <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#panelsStayOpen-collapseOne" aria-expanded="true" aria-controls="panelsStayOpen-collapseOne">
@@ -83,7 +112,7 @@
           </div>
         </div>
       </div>
-    </div>
+    </div>-->
   </div>
 </body>
 </html>
