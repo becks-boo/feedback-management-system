@@ -1,6 +1,8 @@
 package com.stein.ausbilderportal.feedback;
 
+import com.stein.ausbilderportal.apprentice.Apprentice;
 import com.stein.ausbilderportal.base.BaseController;
+import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.dto.FeedbackRequest;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -19,16 +21,18 @@ public class FeedbackController extends BaseController<Feedback, FeedbackReposit
         super(feedbackService);
     }
 
-    @GetMapping("/apprentices/{apprenticeId}/categories/{categoryId}/feedbacks/")
+/*    @GetMapping("/apprentices/{apprenticeId}/categories/{categoryId}/feedbacks/")
     public String getFeedbackByApprenticeIdAndCategoryId(@PathVariable UUID apprenticeId,
                                                                                  @PathVariable UUID categoryId,
                                                                                  Model model) {
         List<Feedback> feedbacks = service.getFeedbackByApprenticeAndCategoryId(apprenticeId, categoryId);
+        // TODO: write getCategoryByApprenticeId
+//        List<Category> categories = service.
         model.addAttribute("feedbacks", feedbacks);
+//        model.addAttribute("categories", categories)
 
         return "show_feedbacks";
-    }
-
+    }*/
 
     @PostMapping("/api/v1/apprentice/feedback/")
     public ResponseEntity<Feedback> addFeedback(@RequestBody FeedbackRequest feedback) throws Exception {

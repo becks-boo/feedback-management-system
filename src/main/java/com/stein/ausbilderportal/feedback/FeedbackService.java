@@ -28,10 +28,10 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
         this.categoryService = categoryService;
     }
 
-    public List<Feedback> getFeedbackByApprenticeAndCategoryId(UUID apprenticeId, UUID categoryId) {
+  /*  public List<Feedback> getFeedbackByApprenticeAndCategoryId(UUID apprenticeId, UUID categoryId) {
         return repo.findByApprenticeIdAndCategoryId(apprenticeId, categoryId);
     }
-
+*/
     public Feedback postFeedback(FeedbackRequest feedback) throws Exception {
         Apprentice apprentice = apprenticeService.get(feedback.apprenticeId());
         Category category = categoryService.get(feedback.categoryId());
