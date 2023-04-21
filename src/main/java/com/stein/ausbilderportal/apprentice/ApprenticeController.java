@@ -2,10 +2,12 @@ package com.stein.ausbilderportal.apprentice;
 
 import com.stein.ausbilderportal.base.BaseController;
 import com.stein.ausbilderportal.exception.ApiRequestException;
+import com.stein.ausbilderportal.feedback.Feedback;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
 import java.util.Optional;
 import java.util.UUID;
 
@@ -18,6 +20,8 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
     @GetMapping("/apprentice/{id}/")
     public String showApprentice(@PathVariable UUID id, Model model) {
         model.addAttribute("apprentice", service.get(id));
+        List<Feedback> feedbackList = service.getFeedbackByApprenticeId(id);
+        model.addAttribute("feedbacks", feedbackList);
 
         return "show_apprentice";
     }
