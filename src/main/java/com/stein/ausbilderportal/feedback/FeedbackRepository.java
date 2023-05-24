@@ -9,4 +9,6 @@ import java.util.UUID;
 @Repository
 public interface FeedbackRepository extends JpaRepository<Feedback, UUID> {
     List<Feedback> findByApprenticeId(UUID apprenticeId);
+
+    List<Feedback> findByApprenticeIdAndCategoryId(UUID apprenticeId, UUID categoryId);
 }
