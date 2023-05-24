@@ -43,7 +43,7 @@
       </thead>
       <tbody>
       <tr th:each="apprentice: ${apprentices}">
-        <td><a th:href="@{/apprentice/{id}(id=${apprentice.id})}" th:text="${apprentice.firstName}"></a></td>
+        <td><a th:href="@{/apprentice/{id}/(id=${apprentice.id})}" th:text="${apprentice.firstName}"></a></td>
         <td th:text="${apprentice.email}"></td>
         <td>
               <a th:href="@{/apprentices/edit/{id}(id=${apprentice.id})}" class="btn btn-dark">Edit</a>
