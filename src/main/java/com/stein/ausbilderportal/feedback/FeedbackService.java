@@ -1,12 +1,12 @@
 package com.stein.ausbilderportal.feedback;
 
 import com.stein.ausbilderportal.apprentice.Apprentice;
+import com.stein.ausbilderportal.apprentice.ApprenticeRepository;
 import com.stein.ausbilderportal.apprentice.ApprenticeService;
 import com.stein.ausbilderportal.base.BaseService;
 import com.stein.ausbilderportal.category.Category;
+import com.stein.ausbilderportal.category.CategoryRepository;
 import com.stein.ausbilderportal.category.CategoryService;
-import com.stein.ausbilderportal.dto.FeedbackRequest;
-import com.stein.ausbilderportal.user.User;
 import com.stein.ausbilderportal.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -18,21 +18,29 @@ import java.util.UUID;
 public class FeedbackService extends BaseService<Feedback, UUID, FeedbackRepository> {
     private final UserService userService;
     private final ApprenticeService apprenticeService;
+    private final ApprenticeRepository apprenticeRepository;
     private final CategoryService categoryService;
+    private final CategoryRepository categoryRepository;
 
     @Autowired
-    public FeedbackService(FeedbackRepository feedbackRepository, UserService userService, ApprenticeService apprenticeService, CategoryService categoryService) {
+    public FeedbackService(FeedbackRepository feedbackRepository, UserService userService, ApprenticeService apprenticeService, ApprenticeRepository apprenticeRepository, CategoryService categoryService, CategoryRepository categoryRepository, FeedbackRepository feedbackRepository1) {
         super(feedbackRepository);
         this.userService = userService;
         this.apprenticeService = apprenticeService;
+        this.apprenticeRepository = apprenticeRepository;
         this.categoryService = categoryService;
+        this.categoryRepository = categoryRepository;
     }
 
     public List<Feedback> getFeedbackByApprenticeIdAndCategoryId(UUID apprenticeId, UUID categoryId) {
         return repo.findByApprenticeIdAndCategoryId(apprenticeId, categoryId);
     }
 
-    public Feedback postFeedback(FeedbackRequest feedback) throws Exception {
+    public void postFeedback(Feedback feedback) {
+        repo.save(feedback);
+    }
+
+/*    public Feedback postFeedback(FeedbackRequest feedback) throws Exception {
         Apprentice apprentice = apprenticeService.get(feedback.apprenticeId());
         Category category = categoryService.get(feedback.categoryId());
         User user = userService.getUser(feedback.userId());
@@ -56,5 +64,5 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
         editedFeedback.setPoster(feedback.poster());
 
         return repo.save(editedFeedback);
-    }
+    }*/
 }
