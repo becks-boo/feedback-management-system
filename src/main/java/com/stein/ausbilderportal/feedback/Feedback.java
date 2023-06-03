@@ -17,16 +17,16 @@ import lombok.*;
 public class Feedback extends BaseEntity {
     private String title;
     private String text;
-    private String poster;
-    @JsonBackReference
+//    private String poster;
+//    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "apprentice_id")
     private Apprentice apprentice;
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "category_id")
     private Category category;
-    @JsonBackReference
+//    @JsonBackReference
     @ManyToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     @JoinColumn(name = "user_id")
     private User user;
@@ -36,7 +36,6 @@ public class Feedback extends BaseEntity {
         return "Feedback{" +
                 "title='" + title + '\'' +
                 ", text='" + text + '\'' +
-                ", poster='" + poster + '\'' +
                 ", apprentice=" + apprentice +
                 ", category=" + category +
                 ", user=" + user +
