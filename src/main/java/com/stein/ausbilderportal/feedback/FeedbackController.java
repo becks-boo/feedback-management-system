@@ -48,10 +48,11 @@ public class FeedbackController extends BaseController<Feedback, FeedbackReposit
     }
 
     @PostMapping("/feedbacks/")
-    public String addFeedback(@ModelAttribute FeedbackData feedbackData) {
+    public String addFeedback(@ModelAttribute FeedbackData feedbackData) throws Exception {
         Feedback feedback = new Feedback();
         Category category = categoryService.get(feedbackData.getCategoryId());
         Apprentice apprentice = apprenticeService.get(feedbackData.getApprenticeId());
+        User user = userService.getUser(feedbackData.getUserId());
         feedback.setApprentice(apprentice);
         feedback.setCategory(category);
         feedback.setTitle(feedbackData.getTitle());
