@@ -5,7 +5,9 @@ import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.category.CategoryRepository;
 import com.stein.ausbilderportal.feedback.Feedback;
 import com.stein.ausbilderportal.feedback.FeedbackRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -13,12 +15,10 @@ import java.util.UUID;
 @Service
 public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeRepository> {
     private final FeedbackRepository feedbackRepository;
-    private final CategoryRepository categoryRepository;
 
-    public ApprenticeService(ApprenticeRepository apprenticeRepository, FeedbackRepository feedbackRepository, CategoryRepository categoryRepository) {
+    public ApprenticeService(ApprenticeRepository apprenticeRepository, FeedbackRepository feedbackRepository) {
         super(apprenticeRepository);
         this.feedbackRepository = feedbackRepository;
-        this.categoryRepository = categoryRepository;
     }
 
     public List<Feedback> getFeedbackByApprenticeId(UUID apprenticeId) {
@@ -35,5 +35,13 @@ public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeR
 
     public void updateApprentice(Apprentice apprentice) {
         repo.save(apprentice);
+    }
+
+    public void deleteApprentice(Apprentice apprentice) {
+        repo.delete(apprentice);
+    }
+
+    public void deleteApprenticeById(UUID id) {
+        repo.deleteById(id);
     }
 }

@@ -15,6 +15,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
+import java.security.Principal;
 import java.util.List;
 import java.util.UUID;
 
@@ -34,12 +35,9 @@ public class FeedbackController extends BaseController<Feedback, FeedbackReposit
 
     @GetMapping("/apprentices/{apprenticeId}/feedbacks/new/")
     public String createFeedbackFormForApprentice(@PathVariable UUID apprenticeId, Model model) {
-        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
-        User user = (User) authentication.getPrincipal();
         FeedbackData feedbackData = new FeedbackData();
         List<Category> categoryList = apprenticeService.getCategoryByApprenticeId(apprenticeId);
 
-        model.addAttribute("userId", user.getId());
         model.addAttribute("feedback", feedbackData);
         model.addAttribute("apprenticeId", apprenticeId);
         model.addAttribute("categories", categoryList);
@@ -49,16 +47,11 @@ public class FeedbackController extends BaseController<Feedback, FeedbackReposit
 
     @PostMapping("/feedbacks/")
     public String addFeedback(@ModelAttribute FeedbackData feedbackData) throws Exception {
-        Feedback feedback = new Feedback();
-        Category category = categoryService.get(feedbackData.getCategoryId());
-        Apprentice apprentice = apprenticeService.get(feedbackData.getApprenticeId());
-        User user = userService.getUser(feedbackData.getUserId());
-        feedback.setApprentice(apprentice);
-        feedback.setCategory(category);
-        feedback.setTitle(feedbackData.getTitle());
-        feedback.setText(feedbackData.getText());
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User user = (User) authentication.getPrincipal();
 
-        service.postFeedback(feedback);
+        feedbackData.setUserId(user.getId());
+        service.postFeedback(feedbackData);
 
         return "redirect:/apprentices/" + feedbackData.getApprenticeId() + "/";
     }

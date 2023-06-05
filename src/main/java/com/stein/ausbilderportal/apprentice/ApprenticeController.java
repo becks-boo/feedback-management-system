@@ -73,16 +73,10 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         return "redirect:/apprentices/";
     }
 
-    @PostMapping("/api/v1/apprentices/")
-    public void onPost(@RequestBody() Optional<Apprentice> apprentice) {
-        if (apprentice.isEmpty()) {
-            throw new ApiRequestException("Please provide a RequestBody.");
-        }
+    @DeleteMapping("/apprentices/{id}")
+    public String deleteApprentice(@PathVariable UUID id) {
+        service.deleteApprenticeById(id);
 
-        if (apprentice.get().getFirstName() == null || apprentice.get().getEmail() == null) {
-            throw new ApiRequestException("Information still needed.");
-        }
-
-        service.postApprentice(apprentice.get());
+        return "redirect:/apprentices/";
     }
 }
