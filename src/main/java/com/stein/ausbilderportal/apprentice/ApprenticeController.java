@@ -51,7 +51,7 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         return "redirect:/apprentices/";
     }
 
-    @GetMapping("/apprentices/edit/{id}")
+    @PutMapping("/apprentices/{id}")
     public String editApprenticeForm(@PathVariable UUID id, Model model) {
         model.addAttribute("apprentice", service.get(id));
 
@@ -61,7 +61,6 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
     @PostMapping("/apprentices/{id}")
     public String editApprentice(@PathVariable UUID id, @ModelAttribute("apprentice") Apprentice apprentice) {
         Apprentice existingApprentice = service.get(id);
-        // TODO: Not necessary
         existingApprentice.setId(id);
         existingApprentice.setFirstName(apprentice.getFirstName());
         existingApprentice.setEmail(apprentice.getEmail());
