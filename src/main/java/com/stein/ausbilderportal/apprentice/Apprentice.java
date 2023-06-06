@@ -15,7 +15,7 @@ import java.util.List;
 public class Apprentice extends BaseEntity {
     private String firstName;
     private String email;
-    @OneToMany(cascade = CascadeType.ALL, mappedBy = "apprentice", fetch = FetchType.LAZY)
+    @OneToMany(cascade = CascadeType.ALL, mappedBy = "apprentice", fetch = FetchType.LAZY, orphanRemoval = true)
     private List<Feedback> feedbackList;
 
     public Apprentice(String firstname, String email) {
