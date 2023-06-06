@@ -33,27 +33,24 @@
       </div>
     </div>
   </nav>
-<br>
-<br>
-<div class="container">
-  <div class="row">
-    <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-      <h1 class="text-center">Edit Category</h1>
-      <div class="card-body">
+  <br>
+  <br>
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
         <form th:action="@{/categories/{id} (id=${category.id})}" th:object="${category}" method="post">
-          <div class="form-group">
-            <label>Name</label>
-            <input type="text" name="name" th:field="*{name}" placeholder="Enter the name"
-                   class="form-control">
-          </div>
-
-          <div class="box-footer">
-            <button type="submit" class="btn btn-dark">Submit</button>
-          </div>
+          <fieldset>
+            <legend class="mt-2">Create New Category</legend>
+            <div class="form-group">
+              <label for="name" class="form-label mt-2">Category</label>
+              <input type="text" class="form-control" id="name" placeholder="Enter Category Name" name="name"
+                     th:field="*{name}">
+            </div>
+            <button type="submit" class="btn btn-primary my-4">Submit</button>
+          </fieldset>
         </form>
       </div>
     </div>
   </div>
-</div>
 </body>
 </html>
