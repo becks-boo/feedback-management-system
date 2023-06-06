@@ -1,8 +1,8 @@
 package com.stein.ausbilderportal.base;
 
+import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.exception.ApiRequestException;
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.List;

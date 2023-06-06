@@ -21,14 +21,18 @@ public class WebSecurityConfig {
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests()
+            .authorizeHttpRequests(authorize -> authorize
                     .requestMatchers("/api/v*/registration/**", "/login")
                     .permitAll()
-                .anyRequest()
-                .authenticated().and()
-                .formLogin();
+                    .anyRequest()
+                    .authenticated()
+            )
+            .formLogin();
+
         return http.build();
     }
+
+
 
     protected void configure(AuthenticationManagerBuilder auth) throws Exception {
         auth.authenticationProvider(daoAuthenticationProvider());

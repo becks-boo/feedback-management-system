@@ -16,9 +16,13 @@
             </button>
             <div class="collapse navbar-collapse" id="navbarNavAltMarkup">
                 <div class="navbar-nav">
-                    <a class="nav-link active" aria-current="page" href="#"><img src="/images/endava-logo.png"
-                                                                                 width="40"></a>
+                    <a class="navbar-brand nav-link active" aria-current="page" th:href="@{/index/}"><img src="/images/endava-logo.png"
+                                                                                                          width="40"></a>
                     <a class="nav-link" th:href="@{/apprentices/}">Apprentices</a>
+                    <a class="nav-link" th:href="@{/categories/}">Categories</a>
+                </div>
+                <div class="navbar-nav ms-auto">
+                    <a class="nav-link" href="#">Logout</a>
                 </div>
             </div>
         </div>
