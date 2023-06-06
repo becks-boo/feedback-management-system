@@ -5,7 +5,6 @@ import com.stein.ausbilderportal.apprentice.ApprenticeService;
 import com.stein.ausbilderportal.base.BaseService;
 import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.category.CategoryService;
-import com.stein.ausbilderportal.dto.FeedbackRequest;
 import com.stein.ausbilderportal.user.User;
 import com.stein.ausbilderportal.user.UserService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -16,12 +15,16 @@ import java.util.UUID;
 
 @Service
 public class FeedbackService extends BaseService<Feedback, UUID, FeedbackRepository> {
+    @Autowired
     private final UserService userService;
+    @Autowired
     private final ApprenticeService apprenticeService;
+    @Autowired
     private final CategoryService categoryService;
 
     @Autowired
-    public FeedbackService(FeedbackRepository feedbackRepository, UserService userService, ApprenticeService apprenticeService, CategoryService categoryService) {
+    public FeedbackService(FeedbackRepository feedbackRepository, UserService userService, ApprenticeService apprenticeService,
+                           CategoryService categoryService) {
         super(feedbackRepository);
         this.userService = userService;
         this.apprenticeService = apprenticeService;
@@ -32,29 +35,26 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
         return repo.findByApprenticeIdAndCategoryId(apprenticeId, categoryId);
     }
 
-    public Feedback postFeedback(FeedbackRequest feedback) throws Exception {
-        Apprentice apprentice = apprenticeService.get(feedback.apprenticeId());
-        Category category = categoryService.get(feedback.categoryId());
-        User user = userService.getUser(feedback.userId());
+    public void postFeedback(FeedbackData feedbackData) throws Exception {
+        Feedback feedback = new Feedback();
+        Category category = categoryService.get(feedbackData.getCategoryId());
+        Apprentice apprentice = apprenticeService.get(feedbackData.getApprenticeId());
+        User user = userService.getUser(feedbackData.getUserId());
+        feedback.setApprentice(apprentice);
+        feedback.setCategory(category);
+        feedback.setUser(user);
+        feedback.setTitle(feedbackData.getTitle());
+        feedback.setText(feedbackData.getText());
 
-        return repo.save(
-                Feedback.builder()
-                        .title(feedback.title())
-                        .text(feedback.text())
-                        .poster(feedback.poster())
-                        .apprentice(apprentice)
-                        .category(category)
-                        .user(user)
-                        .build()
-        );
+        repo.save(feedback);
     }
 
-    public Feedback putFeedback(UUID id, FeedbackRequest feedback) {
+/*    public Feedback putFeedback(UUID id, FeedbackRequest feedback) {
         Feedback editedFeedback = this.get(id);
         editedFeedback.setTitle(feedback.title());
         editedFeedback.setText(feedback.text());
         editedFeedback.setPoster(feedback.poster());
 
         return repo.save(editedFeedback);
-    }
+    }*/
 }

@@ -1,14 +1,13 @@
 package com.stein.ausbilderportal.apprentice;
 
 import com.stein.ausbilderportal.base.BaseController;
-import com.stein.ausbilderportal.exception.ApiRequestException;
+import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.feedback.Feedback;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-import java.util.Optional;
 import java.util.UUID;
 
 @Controller
@@ -17,11 +16,15 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         super(apprenticeService);
     }
 
-    @GetMapping("/apprentice/{id}/")
+    @GetMapping("/apprentices/{id}/")
     public String showApprentice(@PathVariable UUID id, Model model) {
         model.addAttribute("apprentice", service.get(id));
+
         List<Feedback> feedbackList = service.getFeedbackByApprenticeId(id);
         model.addAttribute("feedbacks", feedbackList);
+
+        List<Category> categoryList = service.getCategoryByApprenticeId(id);
+        model.addAttribute("categories", categoryList);
 
         return "show_apprentice";
     }
@@ -68,16 +71,10 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         return "redirect:/apprentices/";
     }
 
-    @PostMapping("/api/v1/apprentices/")
-    public void onPost(@RequestBody() Optional<Apprentice> apprentice) {
-        if (apprentice.isEmpty()) {
-            throw new ApiRequestException("Please provide a RequestBody.");
-        }
+    @DeleteMapping("/apprentices/{id}")
+    public String deleteApprentice(@PathVariable UUID id) {
+        service.deleteApprenticeById(id);
 
-        if (apprentice.get().getFirstName() == null || apprentice.get().getEmail() == null) {
-            throw new ApiRequestException("Information still needed.");
-        }
-
-        service.postApprentice(apprentice.get());
+        return "redirect:/apprentices/";
     }
 }

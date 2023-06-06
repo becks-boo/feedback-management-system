@@ -2,13 +2,14 @@ package com.stein.ausbilderportal.apprentice;
 
 import com.stein.ausbilderportal.base.BaseService;
 import com.stein.ausbilderportal.category.Category;
+import com.stein.ausbilderportal.category.CategoryRepository;
 import com.stein.ausbilderportal.feedback.Feedback;
 import com.stein.ausbilderportal.feedback.FeedbackRepository;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
-import java.util.HashSet;
 import java.util.List;
-import java.util.Set;
 import java.util.UUID;
 
 @Service
@@ -20,18 +21,13 @@ public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeR
         this.feedbackRepository = feedbackRepository;
     }
 
-    public List<Feedback> getFeedbackByApprenticeId(UUID apprenticeID) {
-        return feedbackRepository.findByApprenticeId(apprenticeID);
+    public List<Feedback> getFeedbackByApprenticeId(UUID apprenticeId) {
+        return feedbackRepository.findByApprenticeId(apprenticeId);
     }
-//
-//    public Set<Category> getCategoryByFeedback(List<Feedback> feedbackList) {
-//        Set<Category> categorySet = new HashSet<>();
-//        for (final Feedback feedback : feedbackList) {
-//            categorySet.add(feedback.getCategory());
-//        }
-//
-//        return categorySet;
-//    }
+
+    public List<Category> getCategoryByApprenticeId(UUID apprenticeId) {
+        return feedbackRepository.findCategoryByApprenticeId(apprenticeId);
+    }
 
     public void postApprentice(Apprentice apprentice) {
         repo.save(apprentice);
@@ -39,5 +35,13 @@ public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeR
 
     public void updateApprentice(Apprentice apprentice) {
         repo.save(apprentice);
+    }
+
+    public void deleteApprentice(Apprentice apprentice) {
+        repo.delete(apprentice);
+    }
+
+    public void deleteApprenticeById(UUID id) {
+        repo.deleteById(id);
     }
 }

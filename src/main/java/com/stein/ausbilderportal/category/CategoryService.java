@@ -3,6 +3,7 @@ package com.stein.ausbilderportal.category;
 import com.stein.ausbilderportal.base.BaseService;
 import org.springframework.stereotype.Service;
 
+import java.util.List;
 import java.util.UUID;
 
 @Service

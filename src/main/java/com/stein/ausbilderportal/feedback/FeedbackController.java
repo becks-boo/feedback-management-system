@@ -1,12 +1,13 @@
 package com.stein.ausbilderportal.feedback;
 
-import com.fasterxml.jackson.annotation.JsonValue;
-import com.stein.ausbilderportal.apprentice.Apprentice;
+import com.stein.ausbilderportal.apprentice.ApprenticeService;
 import com.stein.ausbilderportal.base.BaseController;
 import com.stein.ausbilderportal.category.Category;
-import com.stein.ausbilderportal.dto.FeedbackRequest;
-import org.springframework.http.MediaType;
-import org.springframework.http.ResponseEntity;
+import com.stein.ausbilderportal.category.CategoryService;
+import com.stein.ausbilderportal.user.User;
+import com.stein.ausbilderportal.user.UserService;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
@@ -16,26 +17,38 @@ import java.util.UUID;
 
 @Controller
 public class FeedbackController extends BaseController<Feedback, FeedbackRepository, FeedbackService> {
-    public FeedbackController(FeedbackService feedbackService) {
+
+    private final UserService userService;
+    private final ApprenticeService apprenticeService;
+    private final CategoryService categoryService;
+
+    public FeedbackController(FeedbackService feedbackService, UserService userService, ApprenticeService apprenticeService, CategoryService categoryService) {
         super(feedbackService);
+        this.userService = userService;
+        this.apprenticeService = apprenticeService;
+        this.categoryService = categoryService;
     }
 
-    @GetMapping(value = "/api/v1/apprentices/{apprenticeId}/categories/{categoryId}/feedbacks/")
-    public ResponseEntity<List<Feedback>> getFeedbackByApprenticeIdAndCategoryId(@PathVariable UUID apprenticeId,
-                                                                 @PathVariable UUID categoryId) {
-        List<Feedback> feedbacks = service.getFeedbackByApprenticeIdAndCategoryId(apprenticeId, categoryId);
+    @GetMapping("/apprentices/{apprenticeId}/feedbacks/new/")
+    public String createFeedbackFormForApprentice(@PathVariable UUID apprenticeId, Model model) {
+        FeedbackData feedbackData = new FeedbackData();
+        List<Category> categoryList = categoryService.getAll();
 
-        return ResponseEntity.ok(feedbacks);
+        model.addAttribute("feedback", feedbackData);
+        model.addAttribute("apprenticeId", apprenticeId);
+        model.addAttribute("categories", categoryList);
+
+        return "create_feedback";
     }
 
-    @PostMapping("/api/v1/apprentices/feedbacks/")
-    public ResponseEntity<Feedback> addFeedback(@RequestBody FeedbackRequest feedback) throws Exception {
-        return ResponseEntity.ok(service.postFeedback(feedback));
-    }
+    @PostMapping("/feedbacks/")
+    public String addFeedback(@ModelAttribute FeedbackData feedbackData) throws Exception {
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+        User userFromToken = (User) authentication.getPrincipal();
+        User user = (User) userService.loadUserByUsername(userFromToken.getEmail());
+        feedbackData.setUserId(user.getId());
+        service.postFeedback(feedbackData);
 
-    @PutMapping("/api/v1/feedbacks/{id}/")
-    public ResponseEntity<Feedback> editFeedback(@PathVariable UUID id, @RequestBody FeedbackRequest feedback) {
-        return ResponseEntity.ok(service.putFeedback(id, feedback));
+        return "redirect:/apprentices/" + feedbackData.getApprenticeId() + "/";
     }
 }
-

@@ -12,13 +12,8 @@ public class BaseEntity {
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
     private UUID id;
-
     private LocalDateTime createdAt;
-
     private LocalDateTime updatedAt;
-
-    private LocalDateTime deletedAt;
-
     @Enumerated(EnumType.STRING)
     private StateEnum stateEnum;
 
@@ -36,11 +31,5 @@ public class BaseEntity {
 
         this.updatedAt = LocalDateTime.now();
         this.stateEnum = StateEnum.UPDATED;
-    }
-
-    @PostRemove
-    public void onPostRemove() {
-        this.deletedAt = LocalDateTime.now();
-        this.stateEnum = StateEnum.DELETED;
     }
 }

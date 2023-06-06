@@ -1,5 +1,6 @@
 package com.stein.ausbilderportal.base;
 
+import com.stein.ausbilderportal.category.Category;
 import com.stein.ausbilderportal.exception.ApiRequestException;
 import lombok.AllArgsConstructor;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -21,19 +22,7 @@ public class BaseService<Type extends BaseEntity, UUID, Repo extends JpaReposito
         return repo.findAll();
     }
 
-/*    public Type delete(UUID id) {
-        if (get(id).getStateEnum().equals(StateEnum.DELETED)) {
-            throw new ApiRequestException("Object was already deleted.");
-        }
-
-        Type isDeleted = repo.findById(id).get();
-
-        repo.deleteById(id);
-
-        return isDeleted;
-    }
-
-    public void deleteAll() {
-        repo.deleteAll();
-    }*/
+//    public void delete(UUID id) {
+//        repo.deleteById(id);
+//    }
 }
