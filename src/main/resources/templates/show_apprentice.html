@@ -44,27 +44,42 @@
         <a th:href="@{/apprentices/{id}/feedbacks/new/ (id=${apprentice.id})}" class="btn btn-dark btn-sm mb-3">Add Feedback</a>
       </div>
       <ul class="nav nav-tabs" role="tablist">
-        <li class="nav-item" role="presentation">
-          <a class="nav-link active" data-bs-toggle="tab" href="#home" aria-selected="true" role="tab">Home</a>
+        <li class="nav-item" role="presentation" th:each="category : ${categories}">
+       <!--   <a class="nav-link" th:classappend="${category.first} ? 'active'" data-bs-toggle="tab" href="#" aria-selected="false"
+             role="tab" tabindex="-1" th:text="${category.name}">
+          </a>-->
+          <a class="nav-link" data-bs-toggle="tab" th:href="'#'+${category.id}" aria-selected="false" role="tab" tabindex="-1"
+             th:text="${category.name}">
+          </a>
         </li>
       </ul>
-      <div id="myTabContent" class="tab-content" th:each="feedback : ${feedbacks}">
-        <div class="tab-pane fade show active" id="home" role="tabpanel">
-          <div class="accordion" id="accordionExample">
+      <div id="myTabContent" class="tab-content">
+        <div class="tab-pane fade show active" role="tabpanel">
+          <div class="card text-white bg-dark mb-3" style="max-width: 20rem;" th:each="feedback : ${feedbacks}">
+            <div class="card-header" th:id="${feedback.category.getId()}" th:text="${feedback.title}"></div>
+            <div class="card-body">
+<!--              <h4 class="card-title">Dark card title</h4>-->
+              <span class="card-text" th:text="${feedback.text}"></span>" - <span th:if="${feedback.user != null}"
+                                                                th:text="${feedback.user.firstName}"></span>
+            </div>
+          </div>
+          <!--<div class="accordion" id="feedbacks">
             <div class="accordion-item">
-              <h2 class="accordion-header" id="headingOne">
-                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#collapseOne"
-                        aria-expanded="false" aria-controls="collapseOne" th:text="${feedback.title}">
+              <h2 class="accordion-header">
+                <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse"
+                        th:attr="data-bs-target=|#${feedback.id}|"
+                        aria-expanded="false" th:aria-controls="${feedback.id}" th:text="${feedback.title}">
                 </button>
               </h2>
-              <div id="collapseOne" class="accordion-collapse collapse show" aria-labelledby="headingOne" data-bs-parent="#accordionExample">
+              <div th:id="${feedback.id}" class="accordion-collapse collapse show"
+                   th:attr="aria-labelledby=|${feedback.id}|" data-bs-parent="#feedbacks">
                 <div class="accordion-body">
                   "<span th:text="${feedback.text}"></span>" - <span th:if="${feedback.user != null}"
                                                                     th:text="${feedback.user.firstName}"></span>
                 </div>
               </div>
             </div>
-          </div>
+          </div>-->
         </div>
       </div>
     </div>
