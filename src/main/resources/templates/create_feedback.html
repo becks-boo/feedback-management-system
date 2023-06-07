@@ -33,51 +33,42 @@
             </div>
         </div>
     </nav>
-<br>
-<br>
-<div class="container">
-    <div class="row">
-        <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
-            <h1 class="text-center">Create New Feedback</h1>
-            <div class="card-body">
+    <br>
+    <br>
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-6 col-md-6 col-sm-6 container justify-content-center card">
                 <form th:action="@{/feedbacks/}" th:object="${feedback}" method="post">
-                    <div class="form-group">
-                        <label>Title</label>
-                        <label>
-                            <input type="text" name="title" th:field="*{title}" placeholder="Enter the title"
-                                   class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group">
-                        <label>Text</label>
-                        <label>
-                            <input type="text" name="text" th:field="*{text}" placeholder="Enter the text"
-                                   class="form-control">
-                        </label>
-                    </div>
-
-                    <div class="form-group" hidden="hidden">
-                        <label>Apprentice</label>
-                        <label>
-                            <input type="hidden" th:value="${apprenticeId}" name="apprenticeId" />
-                        </label>
-                    </div>
-
-                    <label for="dropDownList">Category</label>
-                    <select class="form-control" id="dropDownList" th:field="*{categoryId}">
-                        <option value="0">Select Category</option>
-                        <option th:each="category : ${categories}" th:value="${category.id}" th:text="${category.name}">
-                        </option>
-                    </select>
-
-                    <div class="box-footer">
-                        <button type="submit" class="btn btn-dark">Submit</button>
-                    </div>
+                    <fieldset>
+                        <legend class="mt-2">Create New Feedback</legend>
+                        <div class="form-group">
+                            <label for="title" class="form-label mt-2">Title</label>
+                            <input type="text" class="form-control" id="title" placeholder="Enter the title" name="title"
+                                   th:field="*{title}">
+                        </div>
+                        <div class="form-group">
+                            <label for="text" class="form-label mt-4">Text</label>
+                            <input type="text" class="form-control" id="text" placeholder="Enter the text" name="text"
+                                   th:field="*{text}">
+                        </div>
+                        <div class="form-group" hidden="hidden">
+                            <label>Apprentice</label>
+                            <label>
+                                <input type="hidden" th:value="${apprenticeId}" name="apprenticeId" />
+                            </label>
+                        </div>
+                        <div class="form-group">
+                            <label for="exampleSelect1" class="form-label mt-4">Example select</label>
+                            <select class="form-select" id="exampleSelect1" th:field="*{categoryId}">
+                                <option th:each="category : ${categories}" th:value="${category.id}"
+                                        th:text="${category.name}"></option>
+                            </select>
+                        </div>
+                        <button type="submit" class="btn btn-primary my-4">Submit</button>
+                    </fieldset>
                 </form>
             </div>
         </div>
     </div>
-</div>
 </body>
 </html>
