@@ -44,6 +44,11 @@ public class ApprenticeController extends BaseController<Apprentice, ApprenticeR
         return "create_apprentice";
     }
 
+    @GetMapping("/apprentices/{apprenticesId}/categories/{categoriesId}/")
+    public List<Feedback> getFeedbacksByApprenticeAndCategory(@PathVariable UUID apprenticeId, UUID categoryId) {
+        return service.getFeedbackByApprenticeAndCategory(apprenticeId, categoryId);
+    }
+
     @PostMapping("/apprentices/")
     public String addApprentice(@ModelAttribute("apprentice") Apprentice apprentice) {
         service.postApprentice(apprentice);
