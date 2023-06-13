@@ -84,10 +84,8 @@
   <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
   <script>
     $(document).ready(function () {
-      // Show the first tab on page load
       $('.nav-tabs a:first').tab('show');
 
-      // Handle tab click event
       $('.nav-tabs a').on('click', function (e) {
         e.preventDefault();
         $(this).tab('show');
