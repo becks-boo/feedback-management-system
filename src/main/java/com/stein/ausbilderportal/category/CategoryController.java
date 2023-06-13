@@ -3,10 +3,7 @@ package com.stein.ausbilderportal.category;
 import com.stein.ausbilderportal.base.BaseController;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.UUID;
 
@@ -35,11 +32,10 @@ public class CategoryController extends BaseController<Category, CategoryReposit
     public String addCategory(@ModelAttribute("category") Category category) {
         service.postCategory(category);
 
-        // TODO: Change path
         return "redirect:/categories/";
     }
 
-    @GetMapping("/categories/edit/{id}")
+    @PutMapping("/categories/{id}")
     public String editCategoryForm(@PathVariable UUID id, Model model) {
         model.addAttribute("category", service.get(id));
 
@@ -52,6 +48,13 @@ public class CategoryController extends BaseController<Category, CategoryReposit
         existingCategory.setName(category.getName());
 
         service.updateCategory(existingCategory);
+
+        return "redirect:/categories/";
+    }
+
+    @DeleteMapping("/categories/{id}")
+    public String deleteApprentice(@PathVariable UUID id) {
+        service.deleteCategoryById(id);
 
         return "redirect:/categories/";
     }

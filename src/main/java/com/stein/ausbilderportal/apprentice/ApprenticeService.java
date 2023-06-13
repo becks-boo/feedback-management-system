@@ -29,6 +29,10 @@ public class ApprenticeService extends BaseService<Apprentice, UUID, ApprenticeR
         return feedbackRepository.findCategoryByApprenticeId(apprenticeId);
     }
 
+    public List<Feedback> getFeedbackByApprenticeAndCategory(UUID apprenticeId, UUID categoryId) {
+        return feedbackRepository.findByApprenticeId(apprenticeId);
+    }
+
     public void postApprentice(Apprentice apprentice) {
         repo.save(apprentice);
     }

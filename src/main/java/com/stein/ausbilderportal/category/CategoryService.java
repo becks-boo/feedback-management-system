@@ -19,4 +19,8 @@ public class CategoryService extends BaseService<Category, UUID, CategoryReposit
     public void updateCategory(Category category) {
         repo.save(category);
     }
+
+    public void deleteCategoryById(UUID id) {
+        repo.deleteById(id);
+    }
 }

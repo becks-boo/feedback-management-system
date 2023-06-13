@@ -1,7 +1,6 @@
 package com.stein.ausbilderportal.base;
 
 import lombok.AllArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.jpa.repository.JpaRepository;
 
 import java.util.UUID;
@@ -11,10 +10,4 @@ public class BaseController<Type extends BaseEntity, Repo extends JpaRepository<
         Service extends BaseService<Type, UUID, Repo>> {
 
     protected final Service service;
-
-
-/*    @GetMapping("/{id}")
-    protected Type onGet(@PathVariable(value = "id") UUID id) {
-        return service.get(id);
-    }*/
 }
