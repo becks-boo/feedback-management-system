@@ -63,7 +63,7 @@
     </ul>
 
     <div class="tab-content" th:each="category : ${categories}">
-      <div th:id="'tab_' + ${category.id}" class="tab-pane show active">
+      <div th:id="'tab_' + ${category.id}" class="tab-pane show" th:classappend="${category.id == categories.get(0).id} ? active : ''">
         <div class="card-deck" th:each="feedback : ${feedbacks}"
              th:if="${feedback.getCategory().id == category.id}">
           <div class="card text-white bg-dark mb-3">
