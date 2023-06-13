@@ -32,7 +32,6 @@ public class CategoryController extends BaseController<Category, CategoryReposit
     public String addCategory(@ModelAttribute("category") Category category) {
         service.postCategory(category);
 
-        // TODO: Change path
         return "redirect:/categories/";
     }
 
