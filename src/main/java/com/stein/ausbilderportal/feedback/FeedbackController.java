@@ -51,4 +51,11 @@ public class FeedbackController extends BaseController<Feedback, FeedbackReposit
 
         return "redirect:/apprentices/" + feedbackData.getApprenticeId() + "/";
     }
+
+    @DeleteMapping("/feedbacks/{feedbackId}")
+    public String deleteFeedback(@ModelAttribute FeedbackData feedbackData, @PathVariable UUID feedbackId) {
+        service.deleteFeedbackById(feedbackId);
+
+        return "redirect:/apprentices/" + feedbackData.getApprenticeId() + "/";
+    }
 }

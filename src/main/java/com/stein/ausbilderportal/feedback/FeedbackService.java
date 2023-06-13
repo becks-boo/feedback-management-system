@@ -49,6 +49,14 @@ public class FeedbackService extends BaseService<Feedback, UUID, FeedbackReposit
         repo.save(feedback);
     }
 
+    public void deleteFeedbackById(UUID id) {
+        repo.deleteById(id);
+    }
+
+    public List<Feedback> findByApprenticeIdAndCategoryId(UUID apprenticeId, UUID categoryId) {
+        return repo.findByApprenticeIdAndCategoryId(apprenticeId, categoryId);
+    }
+
 /*    public Feedback putFeedback(UUID id, FeedbackRequest feedback) {
         Feedback editedFeedback = this.get(id);
         editedFeedback.setTitle(feedback.title());
