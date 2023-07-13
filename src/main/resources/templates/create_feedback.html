@@ -59,8 +59,8 @@
                             </label>
                         </div>
                         <div class="form-group">
-                            <label for="exampleSelect1" class="form-label mt-4">Example select</label>
-                            <select class="form-select" id="exampleSelect1" th:field="*{categoryId}">
+                            <label for="category" class="form-label mt-4">Category</label>
+                            <select class="form-select" id="category" th:field="*{categoryId}">
                                 <option th:each="category : ${categories}" th:value="${category.id}"
                                         th:text="${category.name}"></option>
                             </select>
